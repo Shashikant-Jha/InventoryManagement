@@ -15,16 +15,23 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   login() {
     this.userService.login(this.username, this.password).subscribe(
       (res) => {
         console.log(res);
-        this.constants.USER_LOGGED_IN = true;
-        this.router.navigate(['/products']);
+        const loginresponse = res;
+        if (loginresponse['message'] === 'authenticated') {
+          this.constants.USER_LOGGED_IN = true;
+          this.router.navigate(['/products']);
+        } else {
+          alert('Invalid credentials');
+          this.username = '';
+          this.password = '';
+        }
       },
       (err) => {
         console.log(err);
@@ -33,6 +40,10 @@ export class LoginComponent implements OnInit {
         this.password = '';
       }
     );
+  }
+
+  register() {
+    this.router.navigate(['/register']);
   }
 
 }

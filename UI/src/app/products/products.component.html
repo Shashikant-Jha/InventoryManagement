@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark bg-dark">
   <a class="navbar-brand">Product manager</a>
   <form class="form-inline">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
+    <button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="logout()">Logout</button>
   </form>
 </nav>
 
@@ -29,7 +29,7 @@
     <form>
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" placeholder="Enter name of product" name="selectedProductName" [(ngModel)]="selectedProductName">
+        <input type="text" class="form-control" id="name" placeholder="Enter name of product" name="selectedProductName" [(ngModel)]="selectedProductName" [disabled]="productSelected">
       </div>
       <label for="price">Price</label>
       <div class="input-group">
@@ -45,16 +45,16 @@
       </div>
       <div class="container-fluid button-group">
         <div class="d-inline form-group button-form">
-          <button type="button" class="btn btn-primary" (click)="addProduct()" [disabled]="selectedProductName">Add</button>
+          <button type="button" class="btn btn-primary" (click)="addProduct()" [disabled]="productSelected">Add</button>
         </div>
         <div class="d-inline form-group button-form">
-          <button type="button" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-success" [disabled]="!productSelected" (click)="updateProduct()">Save</button>
         </div>
         <div class="d-inline form-group button-form">
-          <button type="button" class="btn btn-danger">Delete</button>
+          <button type="button" class="btn btn-danger" [disabled]="!productSelected" (click)="deleteProduct()">Delete</button>
         </div>
         <div class="d-inline form-group button-form">
-          <button type="button" class="btn btn-info" (click)="removeSelection()">Cancel</button>
+          <button type="button" class="btn btn-info" (click)="removeSelection()" [disabled]="!productSelected">Cancel</button>
         </div>
       </div>
     </form>

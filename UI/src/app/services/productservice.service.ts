@@ -10,7 +10,7 @@ export class ProductService {
 
   getProducts(id?: any) {
     if (id) {
-      return this.httpClient.post('http://localhost:5001/api/Products/list', { name: id});
+      return this.httpClient.post('http://localhost:5001/api/Products/list', { name: id });
     } else {
       return this.httpClient.post('http://localhost:5001/api/Products/list', {});
     }
@@ -18,5 +18,13 @@ export class ProductService {
 
   addProduct(payload) {
     return this.httpClient.post('http://localhost:5001/api/Products/add', payload);
+  }
+
+  deleteProduct(productname) {
+    return this.httpClient.post('http://localhost:5001/api/Products/delete', { name: productname });
+  }
+
+  updateProduct(payload) {
+    return this.httpClient.post('http://localhost:5001/api/Products/edit', payload);
   }
 }

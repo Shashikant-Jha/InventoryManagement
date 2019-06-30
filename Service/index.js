@@ -70,7 +70,7 @@ router.post('/Accounts/login', (req, res) => {
         if (data) {
             console.log(data)
             if (data.password === reqData.password)
-                res.send({'message': 'logged in successfully'});
+                res.send({'message': 'authenticated'});
             else
                 res.send({'message': 'Incorrect credentials'});
         } else {
@@ -125,11 +125,34 @@ router.post('/Products/list', (req, res) => {
  });
 
  router.post('/Products/edit', (req, res) => {
-    const data = req.body;
-    res.send({'message': 'user registered successfully'});
+    const reqData = req.body;
+    const payload = {
+        _id: reqData.name,
+        price: reqData.price,
+        rating: reqData.rating
+    }
+    console.log(reqData);
+    products.findByIdAndUpdate(reqData.name, payload, {new: true}, (err, data) => {
+        if (err) {
+            console.log(err);
+            res.send({'message': 'some error occured'});
+        }
+        if (data) {
+            console.log(data);
+            res.send({'message': 'product updated successfully'});
+        }
+    });
  });
 
  router.post('/Products/delete', (req, res) => {
-    const data = req.body;
-    res.send({'message': 'user registered successfully'});
+    const reqData = req.body;
+    products.findByIdAndRemove(reqData.name, (err, data) => {
+        if (err) {
+            console.log(err);
+            res.send({'message': 'some error occured'});
+        } else if (data) {
+            console.log(data);
+            res.send({'message': 'product removed successfully'});
+        }
+    });
  });
