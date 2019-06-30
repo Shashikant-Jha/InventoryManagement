@@ -1,0 +1,63 @@
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand">Product manager</a>
+  <form class="form-inline">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
+  </form>
+</nav>
+
+<div class="d-inline-block container left-container">
+  <div class="container top-bar">Products</div>
+  <table>
+    <tbody>
+      <tr *ngFor="let product of products" (click)="populateData(product)">
+        <td>{{ product._id }}</td>
+        <td>${{ product.price }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="d-inline-block container label-container">
+  <label class="product-counter-label"> Product Count: {{numOfProducts}}</label>
+</div>
+
+<div class="container right-container">
+  <div class="container top-bar">Product Details
+    <span class="text-muted">{{ selectedProductName }}</span>
+  </div>
+  <div class="container">
+    <form>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" placeholder="Enter name of product" name="selectedProductName" [(ngModel)]="selectedProductName">
+      </div>
+      <label for="price">Price</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">$</span>
+        </div>
+        <input type="number" class="form-control" placeholder="amount" aria-label="amount" id="price"
+          aria-describedby="basic-addon1" name="selectedProductPrice" [(ngModel)]="selectedProductPrice">
+      </div>
+      <div class="form-group">
+        <label for="rating">Rating</label>
+        <input type="number" class="form-control" id="rating" placeholder="Rating of product" name="selectedProductRating" [(ngModel)]="selectedProductRating">
+      </div>
+      <div class="container-fluid button-group">
+        <div class="d-inline form-group button-form">
+          <button type="button" class="btn btn-primary" (click)="addProduct()" [disabled]="selectedProductName">Add</button>
+        </div>
+        <div class="d-inline form-group button-form">
+          <button type="button" class="btn btn-success">Save</button>
+        </div>
+        <div class="d-inline form-group button-form">
+          <button type="button" class="btn btn-danger">Delete</button>
+        </div>
+        <div class="d-inline form-group button-form">
+          <button type="button" class="btn btn-info" (click)="removeSelection()">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>
